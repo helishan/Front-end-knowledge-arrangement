@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度解析 js 闭包</title>
+</head>
+
+<body>
+    <script>
+        // 1. 闭包是什么？ 方法里返回一个方法
+        // function a() {
+        //     let a1 = 1
+        //     return function() {
+        //         return a1
+        //     }
+        // }
+        // 2. 闭包存在的意义？
+        // 2.1 延长变量的生命周期
+        // 2.2 创建私有环境
+        // let a = "小明"
+        // function fn1() {
+        //     let b = 1
+        //     console.log(a);
+        // }
+        // // console.log(b);
+        // fn1()
+        // AO active object 储存方法和临时变量， 用完后回收
+        // let name = "小河"
+        // function fn2() {
+        //     let name = "小妹"
+        //     function fn3() {
+        //         let name = '小磊'
+        //         console.log(name);
+        //     }
+        //     fn3()
+        // }
+        // fn2()
+        // 作用域链查找的就近原则
+        // 桥梁 沟通内外部方法的桥梁
+        // function fn1() {
+        //     let a1 = 'haha'
+        //     let a2 = 'dede'
+        //     return function fn2() {
+        //         return a1
+        //     }
+        // }
+        // function fn3() {
+        //     let getFn2 = fn1()
+        //     console.dir(getFn2);
+        // }
+        // fn3()
+        // 闭包会将变量永久的存在内存当中，代码执行完之后，以后的每一次调用都会在
+        // 闭包会常驻内存 => 要慎用闭包(要手动回收掉)
+
+        // vue 中的 data 为什么会是一个函数？
+        // data() {
+        //     return {
+
+        //     }
+        // }
+        // 设计就是一个闭包，vue 是一个单页应用, 会有很多对应组件，每一个组件都有一个 data, 通过闭包给每个组件都创建了一个私有域空间。
+        // 这样保证了每个组件都有一个私有的作用域， 若不用闭包，用常规对象设计， 对象会导致各个组件中的数据会相互干扰
+        // class
+        // 计数器 （私有作用域）
+        // let makeCounter = function () {
+        //     let num = 0
+        //     function countBy(val) {
+        //         num += val
+        //     }
+        //     return {
+        //         add: function () {
+        //             countBy(1)
+        //         },
+        //         reduce: function () {
+        //             countBy(-1)
+        //         },
+        //         value: function () {
+        //             return num
+        //         }
+        //     }
+        // }
+        // let counter1 = makeCounter()
+        // let counter2 = makeCounter()
+        // counter1.add()
+        // counter1.add()
+        // counter2.reduce()
+        // counter2.reduce()
+        // console.log(counter1.value())
+        // console.log(counter2.value())
+        // 都有独立的词法作用域
+        // 面向对象编程 —— 数据的隐藏和封装
+
+        /* 总结
+        闭包通俗来讲就是方法里面返回方法，在 js 中函数外部是没有办法访问函数内部的变量以及方法的，这是因为在 js 运行过程中
+        会产生一个叫 AO（active object）的临时对象，AO 中会存有函数和临时变量，但是不会存有全局变量。 js 运行结束后， AO 就会被回收
+        所以我们无法访问。闭包可以起到延长生命周期的作用，可以把变量存储到内存中（closure），代码执行完之后，不会被回收，以后的每一次调用都会在。
+        还有就是闭包可以创建私有环境，我举一个常见的问题吧，vue 中的 data 为什么是一个函数？函数的设计就是一个闭包，vue 是一个单页应用, 会有很
+        多对应组件，每一个组件都有一个 data, 通过闭包给每个组件都创建了一个私有域空间。这样保证了每个组件都有一个私有的作用域， 若不用闭包，用
+        常规对象设计， 会导致各个组件中的数据会相互干扰。用闭包能很好解决数据干扰的问题。
+        */
+        /*闭包是一种特殊的对象，它由两部分组成，执行上下文，以及在这个执行上下文创建的函数，如果函数在执行时，使用了执行上下文
+        中的变量对象，那么闭包就会产生。闭包主要有两大优点，第一个是通过闭包，我们可以在其他的执行上下文中，访问到函数的内部变量，
+        在js执行时，会生成执行上下文（执行环境），主要包括全局环境、函数环境，在执行上下文的创建阶段会生成作用域链、变量对象、this指向，
+        函数外部无法访问函数内部变量，其实通过执行上下文就可以解释，由于作用域链遵循就近原则，所以把内部变量作为返回值进行接收时，外部就可以
+        访问函数内部的变量。第二是就是让变量的值始终保存在内存中，JavaScript拥有自动的垃圾回收机制，关于垃圾回收机制，有一个重要的行为，那就是，
+        当一个值在内存中失去引用时，垃圾回收机制会根据特殊的算法找到它，并将其回收，释放内存。而我们知道，函数的执行上下文，在执行完毕之后，生命
+        周期结束，那么该函数的执行上下文就会失去引用。其占用的内存空间很快就会被垃圾回收器释放。可是闭包的存在，会阻止这一过程。第三是闭包可以创建私有环境*/
+        for (var i = 0; i < 5; i++) {
+            setTimeout(function () {
+                console.log(i++)
+            }, 4000)
+        }
+        console.log(i);
+        // for (var i = 1; i <= 5; i++) {
+        //     setTimeout(function timer() {
+        //         console.log(i);
+        //     }, i * 1000);
+        // }
+    </script>
+</body>
+
+</html>

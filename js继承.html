@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 原型链继承 父类的实例作为子类的原型
+        // function Parent(name, age) {
+        //     this.name = name
+        //     this.age = age
+        //     this.earnMoney = function (money) {
+        //         console.log(this.name + '在' + this.age + '岁赚了' + money + '万')
+        //     }
+        // }
+        // function Son(name, college) {
+        //     this.name = name
+        //     this.college = college
+        //     this.where = function () {
+        //         console.log(this.name + '在' + this.college + '上大学');
+        //     }
+        // }
+        // Son.prototype = new Parent('爸爸', 45)
+        // let mySon = new Son('小明', '武汉大学')
+        // console.log(mySon.college)
+        // console.log(mySon.name)
+        // console.log(mySon.age) // 当前原型上没有，顺着原型链往上找直到为 null， 若依然找不到则返回 undefined
+        // mySon.earnMoney(100)
+        // mySon.where()
+        // function A() {
+        //     this.name = 'hls'
+        //     this.age = 18
+        //     this.habby = ['唱歌', '跳舞', '打篮球']
+        // }
+        // A.prototype.run = function () {
+        //     console.log(this.name + this.age);
+        // }
+        // function B() {
+        // }
+        // B.prototype.sayHi = function () {
+        //     console.log('你好');
+        // }
+        // B.prototype = new A()
+        // let c = new B()
+        // let d = new B()
+        // c.habby.push('炒菜')
+        // console.log(c.habby);
+        // console.log(d.habby);
+        // 如果父类属性是引用数据类型，父类的公用属性会受各个实例的影响
+        // 2. 构造函数继承
+        // function A() {
+        //     this.name = 'hls'
+        //     this.age = 18
+        //     this.habby = ['唱歌', '跳舞', '打篮球']
+        // }
+        // A.prototype.run = function () {
+        //     console.log(this.name + this.age);
+        // }
+        // function B() {
+        //     A.call(this)
+        // }
+        // B.prototype.sayHi = function () {
+        //     console.log('你好');
+        // }
+        // let c = new B()
+        // console.dir(c)
+        // 构造函数不会继承 prototype 上的方法
+        // 3. 组合继承
+        // function A(name, age) {
+        //     this.name = name
+        //     this.age = age
+        // }
+        // A.prototype.sayHi = function () {
+        //     console.log("父亲的你好");
+        // }
+        // function B(height, weigh) {
+        //     A.call(this, "爸爸", 45)
+        //     this.height = height
+        //     this.weigh = weigh
+        // }
+        // B.prototype.sayHello = function() {
+        //     console.log("子类的你好");
+        // }
+        // B.prototype = new A("爸爸", 45)
+        // let son = new B(185, '45kg')
+        // let son = new B(185, '45kg')
+        // B.prototype = new A('爸爸', 45)
+        // B.prototype.sayHello = function () {
+        //     console.log("子类的你好");
+        // }
+        // 4. 寄生组合继承
+        const B = {
+            name: 'lll',
+            age: 18
+        }
+        let ma = Object.create(B)
+        console.dir(B)
+        console.dir(ma)
+    </script>
+</body>
+
+</html>

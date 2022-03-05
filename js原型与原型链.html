@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 原型 prototype 函数特有
+        // 原型链 _proto_ 或许 [[prototype]] 原型链是大家都有
+        // let obj = {}
+        // let arr = []
+        // obj.prototype.a = 8 // 常规的对象和数组没有原型
+        // function fn() {
+        //     let name = 'hls'
+        // }
+        // console.dir(obj)
+        // console.dir(fn)
+        // fn.prototype.name = 'hls'
+        // fn._proto_.fn2() = function () {
+        //     console.log('2222');
+        // }
+        // function Person() {
+        // }
+        // Person.prototype.name = "hls"
+        // Person.prototype.getAge = function () {
+        //     console.log(this.age);/
+        // }
+        // Person.prototype.age = 59
+        // let woman = new Person()
+        // woman.name = 'fff'
+        // woman.age = 25
+        // woman.getAge()
+        // 原型链从当前实例属性去找，如果找到了就返回，找不到就顺着原型链一层一层往上找, 直到找到 null 为止， 如果还是找不到，就会报 undefined
+        // 判断某个属性属于当前实例还是原型链上的实例
+        // let item
+        // for (item in woman) {
+        //     if (woman.hasOwnProperty(item)) {
+        //         console.log(item)
+        //     }
+        // }
+        // console.log(woman._proto_ === Person.prototype);
+        // 被构造的原型链指向构造它的原型
+    </script>
+</body>
+
+</html>

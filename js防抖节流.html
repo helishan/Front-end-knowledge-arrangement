@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js防抖节流</title>
+</head>
+<style>
+    .box {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+    }
+</style>
+
+<body>
+    <input placeholder="请输入电话" id="input" />
+    <div class="box"></div>
+    <script>
+        // 防抖 => 在固定的时间内时间只允许发生一次
+        // 实时搜索
+        let inputEl = document.getElementById('input')
+        function fn1() {
+            console.log("发起后端请求");
+        }
+        inputEl.addEventListener('input', antiShake(fn1, 2000))
+        // 防抖封装
+        function antiShake(fn, wait) {
+            let timeOut = null
+            return args => {
+                if (timeOut) clearTimeout(timeOut)
+                timeOut = setTimeout(fn, wait)
+            }
+        }
+        // 节流 => 一定时间内的多个事件变成一个
+        // 提交表单、高频的监听事件（窗口调整大小（onresize，鼠标移动事件））
+        let box = document.querySelector('.box')
+        box.addEventListener('mousemove', throttle2(fn1, 2000))
+        // 定时器写法
+        function throttle1(event, time) {
+            let timer = null
+            return function () {
+                if (!timer) {
+                    timer = setTimeout(() => {
+                        event()
+                        timer = null
+                    }, time);
+                }
+            }
+        }
+        // 时间戳写法
+        function throttle2(fn, wait) {
+            let prev = 0
+            return function () {
+                let now = new Date()
+                if (now - prev > wait) {
+                    fn()
+                    prev = now
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
